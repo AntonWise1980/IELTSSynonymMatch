@@ -18,6 +18,7 @@ class AnasayfaFragment : Fragment() {
 
         val btnOyun1 = view.findViewById<Button>(R.id.btnStartOyun1)
         val btnOyun2 = view.findViewById<Button>(R.id.btnStartOyun2)
+        val btnOyun3 = view.findViewById<Button>(R.id.btnStartOyun3)
 
         btnOyun1.setOnClickListener {
             navigateToFragment(Oyun1Fragment(), R.id.nav_game)
@@ -25,6 +26,10 @@ class AnasayfaFragment : Fragment() {
 
         btnOyun2.setOnClickListener {
             navigateToFragment(Oyun2Fragment(), R.id.nav_games_list)
+        }
+
+        btnOyun3.setOnClickListener {
+            navigateToFragment(Oyun3Fragment(), R.id.nav_game3)
         }
 
         return view

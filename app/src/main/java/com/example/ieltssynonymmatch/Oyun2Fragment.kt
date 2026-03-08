@@ -163,7 +163,7 @@ class Oyun2Fragment : Fragment(R.layout.fragment_games_list) {
     }
 
     private fun gameOver() {
-        statsManager.updateOyun2Score(score) // High score güncelle
+        statsManager.saveScoreOyun2(score)
         Toast.makeText(context, "Oyun Bitti! Toplam Skor: $score", Toast.LENGTH_LONG).show()
         layoutGameContent.visibility = View.GONE
         layoutIntro.visibility = View.VISIBLE

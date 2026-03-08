@@ -13,11 +13,11 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // Dinleyiciyi önce ata ki selectedItemId değişikliği tetiklensin
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_game -> replaceFragment(Oyun1Fragment())
                 R.id.nav_games_list -> replaceFragment(Oyun2Fragment())
+                R.id.nav_game3 -> replaceFragment(Oyun3Fragment())
                 R.id.nav_stats -> replaceFragment(AnasayfaFragment())
                 R.id.nav_words -> replaceFragment(WordsFragment())
                 R.id.nav_profile -> replaceFragment(ProfileFragment())
@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        // Uygulama ilk açıldığında varsayılan olarak Anasayfa ikonunu seçili yap
         if (savedInstanceState == null) {
             bottomNav.selectedItemId = R.id.nav_stats
         }

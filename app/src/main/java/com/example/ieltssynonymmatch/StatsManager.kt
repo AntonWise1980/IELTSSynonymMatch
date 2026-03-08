@@ -21,6 +21,10 @@ class StatsManager(context: Context) {
         get() = prefs.getInt("oyun2_count", 0)
         set(value) = prefs.edit().putInt("oyun2_count", value).apply()
 
+    var oyun3Count: Int
+        get() = prefs.getInt("oyun3_count", 0)
+        set(value) = prefs.edit().putInt("oyun3_count", value).apply()
+
     var oyun1HighScore: Int
         get() = prefs.getInt("oyun1_highscore", 0)
         set(value) = prefs.edit().putInt("oyun1_highscore", value).apply()
@@ -28,6 +32,10 @@ class StatsManager(context: Context) {
     var oyun2HighScore: Int
         get() = prefs.getInt("oyun2_highscore", 0)
         set(value) = prefs.edit().putInt("oyun2_highscore", value).apply()
+
+    var oyun3HighScore: Int
+        get() = prefs.getInt("oyun3_highscore", 0)
+        set(value) = prefs.edit().putInt("oyun3_highscore", value).apply()
 
     var strikeDay: Int
         get() = prefs.getInt("strike_day", 0)
@@ -37,19 +45,34 @@ class StatsManager(context: Context) {
         get() = prefs.getString("last_play_date", null)
         set(value) = prefs.edit().putString("last_play_date", value).apply()
 
-    fun updateOyun1Score(newScore: Int) {
-        if (newScore > oyun1HighScore) {
-            oyun1HighScore = newScore
-        }
+    fun saveScoreOyun1(score: Int) {
+        if (score > oyun1HighScore) oyun1HighScore = score
+        addScoreToHistory("oyun1_history", score)
     }
 
-    fun updateOyun2Score(newScore: Int) {
-        if (newScore > oyun2HighScore) {
-            oyun2HighScore = newScore
-        }
+    fun saveScoreOyun2(score: Int) {
+        if (score > oyun2HighScore) oyun2HighScore = score
+        addScoreToHistory("oyun2_history", score)
     }
 
-    // Soru Bazlı Takip (WordID_Synonym)
+    fun saveScoreOyun3(score: Int) {
+        if (score > oyun3HighScore) oyun3HighScore = score
+        addScoreToHistory("oyun3_history", score)
+    }
+
+    fun getOyun1History(): List<Int> = getIntList("oyun1_history")
+    fun getOyun2History(): List<Int> = getIntList("oyun2_history")
+    fun getOyun3History(): List<Int> = getIntList("oyun3_history")
+
+    private fun addScoreToHistory(key: String, score: Int) {
+        val list = getIntList(key)
+        list.add(score)
+        // Son 10 skoru tutalım ki grafik çok karmaşık olmasın
+        val limitedList = if (list.size > 10) list.takeLast(10) else list
+        saveIntList(key, limitedList)
+    }
+
+    // Soru Bazlı Takip (WordID_Synonym) - Oyun 1 için
     fun addLearnedQuestion(questionId: String) {
         val list = getStringList("learned_questions")
         if (!list.contains(questionId)) {
@@ -61,7 +84,7 @@ class StatsManager(context: Context) {
     fun getLearnedQuestionsCount(): Int = getStringList("learned_questions").size
     fun getLearnedQuestionIds(): List<String> = getStringList("learned_questions")
 
-    // Kelime Bazlı Takip
+    // Kelime Bazlı Takip - Oyun 3 için
     fun addLearnedWord(wordId: Int) {
         val list = getIntList("learned_words")
         if (!list.contains(wordId)) {

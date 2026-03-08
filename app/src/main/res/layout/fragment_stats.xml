@@ -141,7 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="12dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground">
@@ -183,7 +183,55 @@
                 </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Start Button -->
+        <!-- Oyun 3 Bilgi -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardOyun3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            android:layout_marginBottom="32dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@android:drawable/ic_menu_help"
+                    app:tint="#0277BD"
+                    android:padding="8dp"
+                    android:background="#E1F5FE"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Oyun 3: Definition Challenge"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="#01579B"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="İngilizce tanımlar üzerinden kelime tahmini."
+                        android:textSize="12sp"
+                        android:textColor="#666666"/>
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Start Buttons -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -206,7 +254,7 @@
                 android:layout_weight="1"
                 android:text="OYUN 1"
                 android:backgroundTint="#43A047"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginEnd="4dp"/>
 
             <Button
                 android:id="@+id/btnStartOyun2"
@@ -215,7 +263,16 @@
                 android:layout_weight="1"
                 android:text="OYUN 2"
                 android:backgroundTint="#FB8C00"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginHorizontal="4dp"/>
+
+            <Button
+                android:id="@+id/btnStartOyun3"
+                android:layout_width="0dp"
+                android:layout_height="54dp"
+                android:layout_weight="1"
+                android:text="OYUN 3"
+                android:backgroundTint="#0277BD"
+                android:layout_marginStart="4dp"/>
         </LinearLayout>
 
     </LinearLayout>

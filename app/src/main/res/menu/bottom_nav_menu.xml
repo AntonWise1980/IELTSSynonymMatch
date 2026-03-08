@@ -11,6 +11,11 @@
         android:icon="@drawable/ic_games" />
 
     <item
+        android:id="@+id/nav_game3"
+        android:title="Oyun 3"
+        android:icon="@android:drawable/ic_menu_help" />
+
+    <item
         android:id="@+id/nav_stats"
         android:title="Anasayfa"
         android:icon="@drawable/ic_stats" />
