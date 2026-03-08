@@ -49,13 +49,25 @@ class StatsManager(context: Context) {
         }
     }
 
+    // Soru Bazlı Takip (WordID_Synonym)
+    fun addLearnedQuestion(questionId: String) {
+        val list = getStringList("learned_questions")
+        if (!list.contains(questionId)) {
+            list.add(questionId)
+            saveStringList("learned_questions", list)
+        }
+    }
+
+    fun getLearnedQuestionsCount(): Int = getStringList("learned_questions").size
+    fun getLearnedQuestionIds(): List<String> = getStringList("learned_questions")
+
+    // Kelime Bazlı Takip
     fun addLearnedWord(wordId: Int) {
         val list = getIntList("learned_words")
         if (!list.contains(wordId)) {
             list.add(wordId)
             saveIntList("learned_words", list)
         }
-        // Eğer kelime öğrenildiyse hata listesinden silebiliriz (opsiyonel)
         removeErrorWord(wordId)
     }
 
@@ -100,6 +112,22 @@ class StatsManager(context: Context) {
             }
         }
         lastPlayDate = today
+    }
+
+    private fun getStringList(key: String): MutableList<String> {
+        val json = prefs.getString(key, "[]")
+        val array = JSONArray(json)
+        val list = mutableListOf<String>()
+        for (i in 0 until array.length()) {
+            list.add(array.getString(i))
+        }
+        return list
+    }
+
+    private fun saveStringList(key: String, list: List<String>) {
+        val array = JSONArray()
+        list.forEach { array.put(it) }
+        prefs.edit().putString(key, array.toString()).apply()
     }
 
     private fun getIntList(key: String): MutableList<Int> {

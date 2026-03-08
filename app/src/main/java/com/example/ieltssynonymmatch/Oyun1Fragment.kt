@@ -17,6 +17,7 @@ class Oyun1Fragment : Fragment(R.layout.fragment_game), TextToSpeech.OnInitListe
 
     private lateinit var allWords: List<WordModel>
     private lateinit var currentWord: WordModel
+    private lateinit var currentCorrectSynonym: String
     private var score = 0
     private var lives = 5
     private var tts: TextToSpeech? = null
@@ -24,6 +25,7 @@ class Oyun1Fragment : Fragment(R.layout.fragment_game), TextToSpeech.OnInitListe
 
     private lateinit var tvLives: TextView
     private lateinit var tvScore: TextView
+    private lateinit var tvQuestionCount: TextView
     private lateinit var layoutIntro: LinearLayout
     private lateinit var layoutGameContent: LinearLayout
 
@@ -40,6 +42,7 @@ class Oyun1Fragment : Fragment(R.layout.fragment_game), TextToSpeech.OnInitListe
         val btnSpeak = view.findViewById<ImageButton>(R.id.btnSpeak)
         tvLives = view.findViewById(R.id.textViewLives1)
         tvScore = view.findViewById(R.id.textViewScore)
+        tvQuestionCount = view.findViewById(R.id.textViewQuestionCount)
 
         allWords = loadWordsFromAssets()
 
@@ -72,6 +75,9 @@ class Oyun1Fragment : Fragment(R.layout.fragment_game), TextToSpeech.OnInitListe
     private fun updateUI() {
         tvScore.text = "Puan: $score"
         tvLives.text = "❤️".repeat(lives.coerceAtLeast(0))
+        val learnedCount = statsManager.getLearnedQuestionsCount()
+        val remainingCount = 620 - learnedCount
+        tvQuestionCount.text = "Kalan Soru: $remainingCount"
     }
 
     private fun speakWord(word: String) {
@@ -87,25 +93,46 @@ class Oyun1Fragment : Fragment(R.layout.fragment_game), TextToSpeech.OnInitListe
     private fun setupNewQuestion(view: View) {
         if (allWords.isEmpty()) return
 
-        // Oyun mantığı: Hata yapılan kelimelerden %40 ihtimalle soru getir (Spaced Repetition temeli)
-        val errorWordIds = statsManager.getErrorWordIds()
-        val errorWords = allWords.filter { errorWordIds.contains(it.id) }
+        val learnedQuestionIds = statsManager.getLearnedQuestionIds()
         
-        currentWord = if (errorWords.isNotEmpty() && (0..100).random() < 40) {
-            errorWords.random()
-        } else {
-            allWords.random()
+        // 1. Filtreleme: Kelimenin en az bir bilinmeyen eşanlamlısı olmalı
+        val availableWords = allWords.filter { word ->
+            word.synonyms_list.any { syn -> !learnedQuestionIds.contains("${word.id}_$syn") }
         }
 
-        val correctAnswer = currentWord.synonyms_list.random()
+        if (availableWords.isEmpty()) {
+            Toast.makeText(context, "Tebrikler! Tüm soruları tamamladınız.", Toast.LENGTH_LONG).show()
+            gameOver()
+            return
+        }
+
+        // Seçim mantığı: Hata yapılan ve henüz bilinmeyen kelimelerden %40 ihtimalle seç
+        val errorWordIds = statsManager.getErrorWordIds()
+        val errorAndAvailable = availableWords.filter { errorWordIds.contains(it.id) }
+
+        currentWord = if (errorAndAvailable.isNotEmpty() && (0..100).random() < 40) {
+            errorAndAvailable.random()
+        } else {
+            availableWords.random()
+        }
+
+        // 2. Doğru Cevap Seçimi (Bu kelimenin henüz bilinmeyen bir eşanlamlısı)
+        val availableSynonyms = currentWord.synonyms_list.filter { syn ->
+            !learnedQuestionIds.contains("${currentWord.id}_$syn")
+        }
+        currentCorrectSynonym = availableSynonyms.random()
+
+        // 3. Yanlış Cevaplar
         val wrongAnswers = allWords
             .filter { it.id != currentWord.id }
             .flatMap { it.synonyms_list }
+            .filter { it != currentCorrectSynonym }
             .shuffled()
             .take(3)
 
-        val allOptions = (wrongAnswers + correctAnswer).shuffled()
+        val allOptions = (wrongAnswers + currentCorrectSynonym).shuffled()
 
+        // 4. UI Bağlama
         val tvWord = view.findViewById<TextView>(R.id.textViewTargetWord)
         val tvMeaningTr = view.findViewById<TextView>(R.id.textViewMeaningTr)
         val tvExampleSentence = view.findViewById<TextView>(R.id.textViewExampleSentence)
@@ -128,32 +155,38 @@ class Oyun1Fragment : Fragment(R.layout.fragment_game), TextToSpeech.OnInitListe
             button.setOnClickListener {
                 buttons.forEach { it.isEnabled = false }
 
-                if (button.text == correctAnswer) {
+                if (button.text == currentCorrectSynonym) {
                     score += 10
                     button.setBackgroundColor(Color.GREEN)
-                    statsManager.addLearnedWord(currentWord.id)
+                    statsManager.addLearnedQuestion("${currentWord.id}_$currentCorrectSynonym")
+                    checkAndMarkWordAsLearned()
+                    
                     updateUI()
-                    view.postDelayed({
-                        setupNewQuestion(view)
-                    }, 1000)
+                    view.postDelayed({ setupNewQuestion(view) }, 1000)
                 } else {
                     lives--
                     button.setBackgroundColor(Color.RED)
                     statsManager.addErrorWord(currentWord.id)
-                    buttons.find { it.text == correctAnswer }?.setBackgroundColor(Color.GREEN)
+                    buttons.find { it.text == currentCorrectSynonym }?.setBackgroundColor(Color.GREEN)
                     updateUI()
 
                     if (lives <= 0) {
-                        view.postDelayed({
-                            gameOver()
-                        }, 1900)
+                        view.postDelayed({ gameOver() }, 1900)
                     } else {
-                        view.postDelayed({
-                            setupNewQuestion(view)
-                        }, 1900)
+                        view.postDelayed({ setupNewQuestion(view) }, 1900)
                     }
                 }
             }
+        }
+    }
+
+    private fun checkAndMarkWordAsLearned() {
+        val learnedQuestionIds = statsManager.getLearnedQuestionIds()
+        val allSynonymsLearned = currentWord.synonyms_list.all { syn ->
+            learnedQuestionIds.contains("${currentWord.id}_$syn")
+        }
+        if (allSynonymsLearned) {
+            statsManager.addLearnedWord(currentWord.id)
         }
     }
 

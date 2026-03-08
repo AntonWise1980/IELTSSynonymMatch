@@ -88,6 +88,54 @@
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
+        <!-- Soru Bankası İlerlemesi (Yeni) -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="20dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#E1F5FE">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Oyun 1 Soru Bankası"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="#0277BD"
+                    android:layout_marginBottom="16dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Toplam Soru Kombinasyonu" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="620" android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Doğru Bilinen Sorular" />
+                    <TextView android:id="@+id/tvCorrectQuestions" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:textStyle="bold" android:textColor="#2E7D32"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Kalan Soru Sayısı" />
+                    <TextView android:id="@+id/tvRemainingQuestions" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:textStyle="bold" android:textColor="#E65100"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <!-- Maksimum Skorlar -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
