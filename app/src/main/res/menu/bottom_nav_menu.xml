@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_game"
+        android:title="Oyun 1"
+        android:icon="@drawable/ic_play" />
+
+    <item
+        android:id="@+id/nav_games_list"
+        android:title="Oyun 2"
+        android:icon="@drawable/ic_games" />
+
+    <item
+        android:id="@+id/nav_stats"
+        android:title="Anasayfa"
+        android:icon="@drawable/ic_stats" />
+
+    <item
+        android:id="@+id/nav_words"
+        android:title="Kelimeler"
+        android:icon="@drawable/ic_words" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:title="Profil"
+        android:icon="@drawable/ic_profile" />
+</menu>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <!-- Giriş ve Bilgi Ekranı -->
+    <LinearLayout
+        android:id="@+id/layoutIntroMatch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:gravity="center"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/textViewInfoMatch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Klasik bir eşleştirme oyunudur. Karşınıza 8 adet verb gelecektir. 4 Bir kolonda 4 diğer kolonda olacak şekilde. Bu birbirinden farklı verbleri eşleştirerek turu kazanıp bir sonraki oyuna geçersiniz. Başarıya ulaşmak için 5 hakkınız vardır. Oyuna başlamak için Play tuşuna basın. İyi eğlenceler."
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:lineSpacingExtra="4dp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="40dp" />
+
+        <Button
+            android:id="@+id/btnPlayMatch"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:text="Play"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Oyun Ekranı (Başlangıçta Gizli) -->
+    <LinearLayout
+        android:id="@+id/layoutGameMatchContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:id="@+id/textViewLives"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="❤️❤️❤️❤️❤️"
+                android:textSize="24sp"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/textViewMatchScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score: 0"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kelimeleri Eşleştir"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="32dp"
+            android:textColor="#333333"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <!-- Sol Sütun (İngilizce Kelimeler) -->
+            <LinearLayout
+                android:id="@+id/layoutLeftColumn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <Button android:id="@+id/btnLeft1" android:layout_width="match_parent" android:layout_height="60dp" android:layout_margin="4dp" android:textAllCaps="false"/>
+                <Button android:id="@+id/btnLeft2" android:layout_width="match_parent" android:layout_height="60dp" android:layout_margin="4dp" android:textAllCaps="false"/>
+                <Button android:id="@+id/btnLeft3" android:layout_width="match_parent" android:layout_height="60dp" android:layout_margin="4dp" android:textAllCaps="false"/>
+                <Button android:id="@+id/btnLeft4" android:layout_width="match_parent" android:layout_height="60dp" android:layout_margin="4dp" android:textAllCaps="false"/>
+            </LinearLayout>
+
+            <!-- Sağ Sütun (Eş Anlamlılar) -->
+            <LinearLayout
+                android:id="@+id/layoutRightColumn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <Button android:id="@+id/btnRight1" android:layout_width="match_parent" android:layout_height="60dp" android:layout_margin="4dp" android:textAllCaps="false"/>
+                <Button android:id="@+id/btnRight2" android:layout_width="match_parent" android:layout_height="60dp" android:layout_margin="4dp" android:textAllCaps="false"/>
+                <Button android:id="@+id/btnRight3" android:layout_width="match_parent" android:layout_height="60dp" android:layout_margin="4dp" android:textAllCaps="false"/>
+                <Button android:id="@+id/btnRight4" android:layout_width="match_parent" android:layout_height="60dp" android:layout_margin="4dp" android:textAllCaps="false"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnEndMatchGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Oyunu Bitir"
+            android:backgroundTint="#FF5252"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+</FrameLayout>

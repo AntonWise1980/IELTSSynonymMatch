@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Oyun Ekranı (Başlangıçta Gizli) -->
+    <LinearLayout
+        android:id="@+id/layoutGameContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:id="@+id/textViewLives1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="❤️❤️❤️❤️❤️"
+                android:textSize="24sp"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/textViewScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Puan: 0"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/textViewTargetWord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Soru Kelimesi"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <ImageButton
+                android:id="@+id/btnSpeak"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_speaker"
+                android:contentDescription="Kelimeyi Dinle" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewMeaningTr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(Türkçe Anlamı)"
+            android:textSize="18sp"
+            android:textColor="#555555"
+            android:layout_marginBottom="30dp"
+            android:textStyle="italic" />
+
+        <Button
+            android:id="@+id/btnOption1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="10dp"
+            android:text="Seçenek 1" />
+
+        <Button
+            android:id="@+id/btnOption2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="10dp"
+            android:text="Seçenek 2" />
+
+        <Button
+            android:id="@+id/btnOption3"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="10dp"
+            android:text="Seçenek 3" />
+
+        <Button
+            android:id="@+id/btnOption4"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="10dp"
+            android:text="Seçenek 4" />
+
+        <TextView
+            android:id="@+id/textViewExampleSentence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Example sentence goes here..."
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:textColor="#333333"
+            android:background="#F0F0F0"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/btnEndGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Oyunu Bitir"
+            android:backgroundTint="#FF5252"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <!-- Bilgi ve Başlatma Ekranı (Başlangıçta Görünür) -->
+    <LinearLayout
+        android:id="@+id/layoutIntro"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:gravity="center"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/textViewInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Soru cevap oynudur. Size bir İngilizce Verb sorularcak. Sizde o kelimenin eş anlamlısını seçenekler arasından bulacaksınız. Kelimelerin hepsi IELTS advance seviyedir. Sadece Fiillerden oluşan kütüphane 1000 kelimeyi içermektedir ve hepsi çeşitli bilimsel yayınlar ve akademik yayınlardan alınmıştır. Oynamak istiyorsanız Play tuşuna basınız. Başarıya ulaşmak için 5 hakkınız vardır."
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:lineSpacingExtra="4dp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="40dp" />
+
+        <Button
+            android:id="@+id/btnPlayGame"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:text="Play"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</FrameLayout>
